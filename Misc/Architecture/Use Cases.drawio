@@ -1,1 +1,43 @@
-<mxfile host="app.diagrams.net" modified="2021-01-11T13:40:54.580Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.3 Safari/605.1.15" version="14.1.9" etag="TIrjwZXf32uu_DO3mE6g" type="github"><diagram id="C_Xjyf0UCxpYayQCz1OS">UzV2zq1wL0osyPDNT0nNUTV2VTV2LsrPL4GwciucU3NyVI0MMlNUjV1UjYwMgFjVyA2HrCFY1qAgsSg1rwSLBiADYTaQg2Y1AA==</diagram></mxfile>
+<mxfile host="app.diagrams.net" modified="2021-01-11T14:00:38.350Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.3 Safari/605.1.15" etag="40On4GRW0zw7p1FxIRog" version="14.1.9" type="github">
+  <diagram id="C_Xjyf0UCxpYayQCz1OS" name="Page-1">
+    <mxGraphModel dx="1426" dy="739" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="qFtaRoiSR6DnB6D6sGTc-10" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;" edge="1" parent="1" source="qFtaRoiSR6DnB6D6sGTc-1" target="qFtaRoiSR6DnB6D6sGTc-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="qFtaRoiSR6DnB6D6sGTc-11" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;" edge="1" parent="1" source="qFtaRoiSR6DnB6D6sGTc-1" target="qFtaRoiSR6DnB6D6sGTc-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="qFtaRoiSR6DnB6D6sGTc-15" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;" edge="1" parent="1" source="qFtaRoiSR6DnB6D6sGTc-1" target="qFtaRoiSR6DnB6D6sGTc-12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="qFtaRoiSR6DnB6D6sGTc-17" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=none;endFill=0;" edge="1" parent="1" source="qFtaRoiSR6DnB6D6sGTc-1" target="qFtaRoiSR6DnB6D6sGTc-16">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="qFtaRoiSR6DnB6D6sGTc-1" value="Mira" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;perimeterSpacing=20;" vertex="1" parent="1">
+          <mxGeometry x="130" y="60" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="qFtaRoiSR6DnB6D6sGTc-7" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;" edge="1" parent="1" source="qFtaRoiSR6DnB6D6sGTc-2" target="qFtaRoiSR6DnB6D6sGTc-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="qFtaRoiSR6DnB6D6sGTc-2" value="Create New Reminder" style="ellipse;whiteSpace=wrap;html=1;perimeterSpacing=20;" vertex="1" parent="1">
+          <mxGeometry x="360" y="160" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="qFtaRoiSR6DnB6D6sGTc-8" value="Edit Reminder" style="ellipse;whiteSpace=wrap;html=1;perimeterSpacing=20;" vertex="1" parent="1">
+          <mxGeometry x="320" y="320" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="qFtaRoiSR6DnB6D6sGTc-9" value="Delete Reminder" style="ellipse;whiteSpace=wrap;html=1;perimeterSpacing=20;" vertex="1" parent="1">
+          <mxGeometry x="200" y="440" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="qFtaRoiSR6DnB6D6sGTc-12" value="Activate" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="40" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="qFtaRoiSR6DnB6D6sGTc-16" value="Recieve Notifications" style="ellipse;whiteSpace=wrap;html=1;perimeterSpacing=20;" vertex="1" parent="1">
+          <mxGeometry x="40" y="440" width="120" height="80" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
