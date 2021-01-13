@@ -1,41 +1,64 @@
-<mxfile host="app.diagrams.net" modified="2021-01-11T14:00:38.350Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.3 Safari/605.1.15" etag="40On4GRW0zw7p1FxIRog" version="14.1.9" type="github">
+<mxfile host="app.diagrams.net" modified="2021-01-13T15:05:57.707Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.3 Safari/605.1.15" etag="l2AiL2Cg-wUJd28dyfco" version="14.1.9" type="github">
   <diagram id="C_Xjyf0UCxpYayQCz1OS" name="Page-1">
-    <mxGraphModel dx="1426" dy="739" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="671" dy="767" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="qFtaRoiSR6DnB6D6sGTc-10" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;" edge="1" parent="1" source="qFtaRoiSR6DnB6D6sGTc-1" target="qFtaRoiSR6DnB6D6sGTc-8">
+        <mxCell id="qFtaRoiSR6DnB6D6sGTc-10" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;" parent="1" source="qFtaRoiSR6DnB6D6sGTc-1" target="qFtaRoiSR6DnB6D6sGTc-8" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="qFtaRoiSR6DnB6D6sGTc-11" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;" edge="1" parent="1" source="qFtaRoiSR6DnB6D6sGTc-1" target="qFtaRoiSR6DnB6D6sGTc-9">
+        <mxCell id="qFtaRoiSR6DnB6D6sGTc-11" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;" parent="1" source="qFtaRoiSR6DnB6D6sGTc-1" target="qFtaRoiSR6DnB6D6sGTc-9" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="qFtaRoiSR6DnB6D6sGTc-15" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;" edge="1" parent="1" source="qFtaRoiSR6DnB6D6sGTc-1" target="qFtaRoiSR6DnB6D6sGTc-12">
+        <mxCell id="ZAhVjDf4i5M91oWExBp1-8" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.3333333333333333;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;startArrow=none;startFill=0;endArrow=none;endFill=0;" edge="1" parent="1" source="qFtaRoiSR6DnB6D6sGTc-1" target="ZAhVjDf4i5M91oWExBp1-7">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="qFtaRoiSR6DnB6D6sGTc-17" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=none;endFill=0;" edge="1" parent="1" source="qFtaRoiSR6DnB6D6sGTc-1" target="qFtaRoiSR6DnB6D6sGTc-16">
+        <mxCell id="qFtaRoiSR6DnB6D6sGTc-1" value="Narcos" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;perimeterSpacing=20;" parent="1" vertex="1">
+          <mxGeometry x="40" y="40" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="qFtaRoiSR6DnB6D6sGTc-7" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;" parent="1" source="qFtaRoiSR6DnB6D6sGTc-2" target="qFtaRoiSR6DnB6D6sGTc-1" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="qFtaRoiSR6DnB6D6sGTc-1" value="Mira" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;perimeterSpacing=20;" vertex="1" parent="1">
-          <mxGeometry x="130" y="60" width="30" height="60" as="geometry" />
+        <mxCell id="qFtaRoiSR6DnB6D6sGTc-2" value="Create New Reminder" style="ellipse;whiteSpace=wrap;html=1;perimeterSpacing=20;" parent="1" vertex="1">
+          <mxGeometry x="280" y="210" width="120" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="qFtaRoiSR6DnB6D6sGTc-7" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;" edge="1" parent="1" source="qFtaRoiSR6DnB6D6sGTc-2" target="qFtaRoiSR6DnB6D6sGTc-1">
+        <mxCell id="qFtaRoiSR6DnB6D6sGTc-8" value="Edit Reminder" style="ellipse;whiteSpace=wrap;html=1;perimeterSpacing=20;" parent="1" vertex="1">
+          <mxGeometry x="200" y="320" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="qFtaRoiSR6DnB6D6sGTc-9" value="Delete Reminder" style="ellipse;whiteSpace=wrap;html=1;perimeterSpacing=20;" parent="1" vertex="1">
+          <mxGeometry x="40" y="400" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="qFtaRoiSR6DnB6D6sGTc-12" value="Schedule (Activate/Deactivate)" style="ellipse;whiteSpace=wrap;html=1;perimeterSpacing=20;" parent="1" vertex="1">
+          <mxGeometry x="500" y="320" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="ZAhVjDf4i5M91oWExBp1-1" value="Actor" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;perimeterSpacing=15;" vertex="1" parent="1">
+          <mxGeometry x="280" y="620" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ZAhVjDf4i5M91oWExBp1-3" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;" edge="1" parent="1" source="ZAhVjDf4i5M91oWExBp1-2" target="ZAhVjDf4i5M91oWExBp1-1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="qFtaRoiSR6DnB6D6sGTc-2" value="Create New Reminder" style="ellipse;whiteSpace=wrap;html=1;perimeterSpacing=20;" vertex="1" parent="1">
-          <mxGeometry x="360" y="160" width="120" height="80" as="geometry" />
+        <mxCell id="ZAhVjDf4i5M91oWExBp1-2" value="Notify User" style="ellipse;whiteSpace=wrap;html=1;perimeterSpacing=5;" vertex="1" parent="1">
+          <mxGeometry x="360" y="440" width="120" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="qFtaRoiSR6DnB6D6sGTc-8" value="Edit Reminder" style="ellipse;whiteSpace=wrap;html=1;perimeterSpacing=20;" vertex="1" parent="1">
-          <mxGeometry x="320" y="320" width="120" height="80" as="geometry" />
+        <mxCell id="ZAhVjDf4i5M91oWExBp1-4" value="" style="endArrow=none;startArrow=none;html=1;entryX=0;entryY=0;entryDx=0;entryDy=0;startFill=0;endFill=0;" edge="1" parent="1" source="qFtaRoiSR6DnB6D6sGTc-2" target="qFtaRoiSR6DnB6D6sGTc-12">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="320" y="420" as="sourcePoint" />
+            <mxPoint x="370" y="370" as="targetPoint" />
+          </mxGeometry>
         </mxCell>
-        <mxCell id="qFtaRoiSR6DnB6D6sGTc-9" value="Delete Reminder" style="ellipse;whiteSpace=wrap;html=1;perimeterSpacing=20;" vertex="1" parent="1">
-          <mxGeometry x="200" y="440" width="120" height="80" as="geometry" />
+        <mxCell id="ZAhVjDf4i5M91oWExBp1-6" value="&amp;lt;extends&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="ZAhVjDf4i5M91oWExBp1-4">
+          <mxGeometry x="0.1434" y="-1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
         </mxCell>
-        <mxCell id="qFtaRoiSR6DnB6D6sGTc-12" value="Activate" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="360" y="40" width="120" height="80" as="geometry" />
+        <mxCell id="ZAhVjDf4i5M91oWExBp1-5" value="&amp;lt;extends&amp;gt;" style="endArrow=none;startArrow=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;startFill=0;endFill=0;" edge="1" parent="1" target="qFtaRoiSR6DnB6D6sGTc-12">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="330" y="360" as="sourcePoint" />
+            <mxPoint x="380" y="420" as="targetPoint" />
+          </mxGeometry>
         </mxCell>
-        <mxCell id="qFtaRoiSR6DnB6D6sGTc-16" value="Recieve Notifications" style="ellipse;whiteSpace=wrap;html=1;perimeterSpacing=20;" vertex="1" parent="1">
-          <mxGeometry x="40" y="440" width="120" height="80" as="geometry" />
+        <mxCell id="ZAhVjDf4i5M91oWExBp1-7" value="Open Reminders List" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="320" y="90" width="120" height="70" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
