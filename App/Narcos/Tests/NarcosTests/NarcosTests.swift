@@ -6,37 +6,47 @@ import XCTest
 final class NarcosTests: XCTestCase {
 
     func test_start_navigatesToHome() throws {
-        let router = RouterSpy()
-        let engine = Narcos(router: router)
         
-        engine.start()
+        let (sut, router) = makeSUT()
+        
+        sut.start()
         
         XCTAssertEqual(router.routesCount, 1)
     }
     
-    func test_startAndCreatesNewReminder_navigatesToNewReminder() throws {
-        let router = RouterSpy()
-        let engine = Narcos(router: router)
+    func test_createReminderAndCommits_remindersCountIncrements() throws {
+        let (sut, router) = makeSUT()
+        router.newReminder = Reminder()
         
-        engine.start()
-        engine.createReminder()
+        sut.start()
+        sut.createReminder()
         
-        XCTAssertEqual(router.routes, ["home", "new reminder"])
+        XCTAssertEqual(sut.reminders.count, 1)
+        XCTAssertEqual(router.routes, ["home", "new reminder", "home"])
     }
     
-    func test_createReminderAndCommits_remindersCountIncrements(){
+    func test_createReminderAndCancel_remindersCountUnchanged() {
+       
+        let (sut, router) = makeSUT()
+
+        sut.start()
+        sut.createReminder()
+        
+        XCTAssertEqual(sut.reminders.count, 0)
+        XCTAssertEqual(router.routes, ["home", "new reminder", "home"])
+    }
+    
+    private func makeSUT() -> (Narcos, RouterSpy) {
         let router = RouterSpy()
-        let engine = Narcos(router: router)
-        
-        engine.start()
-        engine.createReminder()
-        
-        XCTAssertEqual(engine.reminders.count, 1)
+        return (Narcos(router: router), router)
     }
     
     private class RouterSpy: Router {
-        func navigateToNewReminder() {
+        var newReminder : Reminder?
+        
+        func navigateToNewReminder(with completion: ((Reminder?) -> Void)) {
             routes.append("new reminder")
+            completion(newReminder)
         }
         
         var routesCount: Int {

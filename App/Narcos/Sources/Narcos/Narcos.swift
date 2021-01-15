@@ -1,7 +1,7 @@
 
 protocol Router {
     func navigateToHome()
-    func navigateToNewReminder()
+    func navigateToNewReminder(with completion: ((Reminder?) -> Void))
 }
 
 struct Reminder {
@@ -23,6 +23,12 @@ class Narcos {
     }
     
     func createReminder() {
-        router.navigateToNewReminder()
+        router.navigateToNewReminder { (reminder) in
+            if let reminder = reminder {
+                reminders.append(reminder)
+            }
+            
+            router.navigateToHome()
+        }
     }
 }
