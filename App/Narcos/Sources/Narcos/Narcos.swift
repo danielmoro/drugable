@@ -8,6 +8,7 @@ protocol Router {
 
 struct Reminder: Equatable {
     var name: String
+    
 }
 
 class Narcos {
@@ -35,11 +36,16 @@ class Narcos {
         }
     }
     
+    
+    
     func editReminder(at index: Int) {
         router.navigateToEditReminder(reminder: reminders[index]) {[weak self] (reminder) in
             self?.reminders.remove(at: index)
             self?.reminders.insert(reminder, at: index)
         }
     }
-    //test
+    
+    func deleteReminder(at index: Int) {
+        reminders.remove(at: index)
+    }
 }
