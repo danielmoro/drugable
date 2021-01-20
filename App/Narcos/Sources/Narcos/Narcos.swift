@@ -31,7 +31,6 @@ class Narcos {
             if let reminder = reminder {
                 self?.reminders.append(reminder)
             }
-            
             self?.router.navigateToHome()
         }
     }
