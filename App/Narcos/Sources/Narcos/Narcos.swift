@@ -1,4 +1,3 @@
-
 protocol Router {
     func navigateToHome()
     func navigateToNewReminder(with completion: @escaping ((Reminder?) -> Void))
