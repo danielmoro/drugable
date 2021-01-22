@@ -107,10 +107,21 @@ final class NarcosTests: XCTestCase {
         XCTAssertEqual(sut.reminders.count, 2)
     }
 
+    func test_scheduleReminder_schedulesReminerInWatcher() {
+        // given
+        let reminder = makeReminder()
+        let sut = Watcher()
+        // let (sut, _) = makeSUT(reminders: [reminder])
+        // when
+        sut.schedule(reminder: reminder)
+        // what
+        XCTAssertTrue(sut.isReminderScheduled(reminder))
+    }
+
     // MARK: -
 
     private func makeReminder(name: String = "") -> Reminder {
-        return Reminder(name: name)
+        Reminder(name: name)
     }
 
     private func makeSUT(reminders: [Reminder] = []) -> (Narcos, RouterSpy) {
