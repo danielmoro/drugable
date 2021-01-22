@@ -1,0 +1,28 @@
+name: Narcos
+targets:
+  Narcos:
+    sources: Sources
+    type: framework
+    platform: macOS
+    settings:
+      base:
+        CODE_SIGN_STYLE: Automatic
+        CODE_SIGN_IDENTITY: Apple Development
+    info:
+        path: Info.plist
+    prebuildScripts:
+      - script: |
+                swiftformat --swiftversion 5.3 .
+                swiftlint autocorrrect
+                swiftlint lint
+        name: Build Tools
+  NarcosTests:
+    sources: Tests
+    type: bundle.unit-test
+    platform: macOS
+    dependencies:
+      - target: Narcos
+    settings:
+      base:
+        CODE_SIGN_STYLE: Automatic
+        CODE_SIGN_IDENTITY: Apple Development
