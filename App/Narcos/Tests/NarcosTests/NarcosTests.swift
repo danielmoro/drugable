@@ -21,6 +21,17 @@ final class NarcosTests: XCTestCase {
         XCTAssertEqual(router.routes, ["home", "new reminder", "home"])
     }
 
+    func test_createReminder_commitAndSchedule_reminderScheduled() throws {
+        let (sut, router) = makeSUT()
+        router.newReminder = makeReminder()
+        router.shouldSchedule = true
+
+        sut.start()
+        sut.createReminder()
+        
+        XCTAssertTrue(sut.watcher.isScheduled(reminder: router.newReminder!))
+    }
+    
     func test_createReminder_cancel_remindersCountUnchanged() {
         let (sut, router) = makeSUT()
 
@@ -137,6 +148,7 @@ final class NarcosTests: XCTestCase {
         
         XCTAssertEqual(sut.scheduledReminders.count, 1)
     }
+    
 
     // MARK: -
 
@@ -146,16 +158,18 @@ final class NarcosTests: XCTestCase {
 
     private func makeSUT(reminders: [Reminder] = []) -> (Narcos, RouterSpy) {
         let router = RouterSpy()
-        return (Narcos(router: router, reminders: reminders), router)
+        let watcher = Watcher()
+        return (Narcos(router: router, reminders: reminders, watcher: watcher), router)
     }
 
     private class RouterSpy: Router {
         var newReminder: Reminder?
+        var shouldSchedule: Bool = false
         var editReminderCompletion: ((Reminder) -> Reminder)?
 
-        func navigateToNewReminder(with completion: (Reminder?) -> Void) {
+        func navigateToNewReminder(with completion: (Reminder?, Bool) -> Void) {
             routes.append("new reminder")
-            completion(newReminder)
+            completion(newReminder, shouldSchedule)
         }
 
         func navigateToEditReminder(reminder: Reminder, with completion: @escaping ((Reminder) -> Void)) {

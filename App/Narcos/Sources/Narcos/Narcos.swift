@@ -1,6 +1,6 @@
 protocol Router {
     func navigateToHome()
-    func navigateToNewReminder(with completion: @escaping ((Reminder?) -> Void))
+    func navigateToNewReminder(with completion: @escaping ((Reminder?, Bool) -> Void))
     func navigateToEditReminder(reminder: Reminder, with completion: @escaping ((Reminder) -> Void))
 }
 
@@ -11,12 +11,14 @@ struct Reminder: Equatable, Hashable {
 
 class Narcos {
     private var router: Router
+    var watcher : Watcher
 
     var reminders: [Reminder]
 
-    init(router: Router, reminders: [Reminder] = []) {
+    init(router: Router, reminders: [Reminder] = [], watcher: Watcher) {
         self.router = router
         self.reminders = reminders
+        self.watcher = watcher
     }
 
     func start() {
@@ -24,9 +26,12 @@ class Narcos {
     }
 
     func createReminder() {
-        router.navigateToNewReminder { [weak self] reminder in
+        router.navigateToNewReminder { [weak self] (reminder, shouldSchedule) in
             if let reminder = reminder {
                 self?.reminders.append(reminder)
+                if shouldSchedule == true {
+                    self?.watcher.schedule(reminder: reminder)
+                }
             }
             self?.router.navigateToHome()
         }
