@@ -8,15 +8,13 @@
 import Foundation
 
 class Watcher {
-    var scheduledReminders = [Reminder]()
+    var scheduledReminders : Set<Reminder> = []
     func schedule(reminder : Reminder) {
-        scheduledReminders.append(reminder)
+        scheduledReminders.insert(reminder)
     }
 
     func unschedule(reminder: Reminder) {
-        if let index = scheduledReminders.firstIndex(of: reminder) {
-            scheduledReminders.remove(at: index)
-        }
+        scheduledReminders.remove(reminder)
     }
     
     func isScheduled(reminder : Reminder) -> Bool {

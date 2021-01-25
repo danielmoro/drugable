@@ -4,8 +4,9 @@ protocol Router {
     func navigateToEditReminder(reminder: Reminder, with completion: @escaping ((Reminder) -> Void))
 }
 
-struct Reminder: Equatable {
+struct Reminder: Equatable, Hashable {
     var name: String
+    
 }
 
 class Narcos {
