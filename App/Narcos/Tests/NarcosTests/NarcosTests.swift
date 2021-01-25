@@ -115,7 +115,17 @@ final class NarcosTests: XCTestCase {
         // when
         sut.schedule(reminder: reminder)
         // what
-        XCTAssertTrue(sut.isReminderScheduled(reminder))
+        XCTAssertTrue(sut.isScheduled(reminder: reminder))
+    }
+    
+    func test_unscheduleReminder_unschedulesReminerInWatcher() {
+        let reminder = makeReminder()
+        let sut = Watcher()
+        
+        sut.schedule(reminder: reminder)
+        sut.unschedule(reminder: reminder)
+        
+        XCTAssertFalse(sut.isScheduled(reminder: reminder))
     }
 
     // MARK: -
