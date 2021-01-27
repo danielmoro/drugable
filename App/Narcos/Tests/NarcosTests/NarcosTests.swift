@@ -29,7 +29,7 @@ final class NarcosTests: XCTestCase {
         sut.start()
         sut.createReminder()
         
-        XCTAssertTrue(sut.watcher.isScheduled(reminder: router.newReminder!))
+        XCTAssertTrue(sut.watcher.isScheduled(reminder: sut.reminders[0]))
     }
     
     func test_createReminder_commitWithoutScheduling_reminderIsNotScheduled() throws {
@@ -221,14 +221,18 @@ final class NarcosTests: XCTestCase {
         var shouldSchedule: Bool = false
         var editReminderCompletion: ((Reminder) -> Reminder)?
 
-        func navigateToNewReminder(with completion: (Reminder?, Bool) -> Void) {
+        func navigateToNewReminder(with completion: (Reminder?) -> Void) {
             routes.append("new reminder")
-            completion(newReminder, shouldSchedule)
+            var reminder = newReminder
+            reminder?.isScheduled = shouldSchedule
+            completion(reminder)
         }
 
-        func navigateToEditReminder(reminder: Reminder, with completion: @escaping ((Reminder, Bool) -> Void)) {
+        func navigateToEditReminder(reminder: Reminder, with completion: @escaping ((Reminder) -> Void)) {
             routes.append("edit reminder")
-            completion(editReminderCompletion?(reminder) ?? reminder, shouldSchedule)
+            var reminder = editReminderCompletion?(reminder) ?? reminder
+            reminder.isScheduled = shouldSchedule
+            completion(reminder)
         }
 
         var routesCount: Int {
