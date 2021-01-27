@@ -1,7 +1,7 @@
 protocol Router {
     func navigateToHome()
     func navigateToNewReminder(with completion: @escaping ((Reminder?, Bool) -> Void))
-    func navigateToEditReminder(reminder: Reminder, with completion: @escaping ((Reminder) -> Void))
+    func navigateToEditReminder(reminder: Reminder, with completion: @escaping ((Reminder, Bool) -> Void))
 }
 
 struct Reminder: Equatable, Hashable {
@@ -38,8 +38,13 @@ class Narcos {
     }
 
     func editReminder(at index: Int) {
-        router.navigateToEditReminder(reminder: reminders[index]) { [weak self] reminder in
+        router.navigateToEditReminder(reminder: reminders[index]) { [weak self] reminder, shouldSchedule  in
             self?.reminders.remove(at: index)
+            if shouldSchedule == true {
+                self?.watcher.schedule(reminder: reminder)
+            } else {
+                self?.watcher.unschedule(reminder: reminder)
+            }
             self?.reminders.insert(reminder, at: index)
         }
     }

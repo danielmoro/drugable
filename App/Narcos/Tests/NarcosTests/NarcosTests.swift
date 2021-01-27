@@ -32,6 +32,17 @@ final class NarcosTests: XCTestCase {
         XCTAssertTrue(sut.watcher.isScheduled(reminder: router.newReminder!))
     }
     
+    func test_createReminder_commitWithoutScheduling_reminderIsNotScheduled() throws {
+        let (sut, router) = makeSUT()
+        router.newReminder = makeReminder()
+        router.shouldSchedule = false
+
+        sut.start()
+        sut.createReminder()
+        
+        XCTAssertFalse(sut.watcher.isScheduled(reminder: router.newReminder!))
+    }
+    
     func test_createReminder_cancel_remindersCountUnchanged() {
         let (sut, router) = makeSUT()
 
@@ -42,7 +53,7 @@ final class NarcosTests: XCTestCase {
         XCTAssertEqual(router.routes, ["home", "new reminder", "home"])
     }
 
-    func test_editReminder_commit_reminderChanged() {
+    func test_editReminder_changeNameAndCommit_reminderNameChanged() {
         let reminder1 = makeReminder(name: "R1")
         let reminder2 = makeReminder(name: "R2")
         let reminders = [reminder1, reminder2]
@@ -74,6 +85,49 @@ final class NarcosTests: XCTestCase {
 
         sut.editReminder(at: 0)
         XCTAssertEqual(sut.reminders[0].name, "L1")
+    }
+    
+    func test_editReminder_schedule_reminderScheduled() {
+        let reminder = makeReminder()
+        let (sut, router) = makeSUT(reminders: [reminder])
+        router.shouldSchedule = true
+        
+        
+        sut.editReminder(at: 0)
+        
+        XCTAssertTrue(sut.watcher.isScheduled(reminder: sut.reminders[0]))
+    }
+    
+    func test_editReminder_unschedule_reminderUnscheduled() {
+        let reminder = makeReminder()
+        let (sut, router) = makeSUT(reminders: [reminder])
+        sut.watcher.schedule(reminder: reminder)
+        router.shouldSchedule = false
+        
+        XCTAssertTrue(sut.watcher.isScheduled(reminder: sut.reminders[0]))
+
+        sut.editReminder(at: 0)
+        
+        XCTAssertFalse(sut.watcher.isScheduled(reminder: sut.reminders[0]))
+    }
+    
+    func test_editReminder_changeNameofScheduledReminder_reminderIsScheduled() {
+        let reminder = makeReminder()
+        let (sut, router) = makeSUT(reminders: [reminder])
+        sut.watcher.schedule(reminder: reminder)
+        router.shouldSchedule = true
+        
+        router.editReminderCompletion = { reminder in
+                var reminderNew = reminder
+                reminderNew.name = "updatedName"
+                return reminderNew
+        }
+        
+        XCTAssertTrue(sut.watcher.isScheduled(reminder: sut.reminders[0]))
+        
+        sut.editReminder(at: 0)
+        
+        XCTAssertTrue(sut.watcher.isScheduled(reminder: sut.reminders[0]))
     }
 
     func test_editReminderWithSameName_commit_reminderChanged() {
@@ -172,9 +226,9 @@ final class NarcosTests: XCTestCase {
             completion(newReminder, shouldSchedule)
         }
 
-        func navigateToEditReminder(reminder: Reminder, with completion: @escaping ((Reminder) -> Void)) {
+        func navigateToEditReminder(reminder: Reminder, with completion: @escaping ((Reminder, Bool) -> Void)) {
             routes.append("edit reminder")
-            completion(editReminderCompletion?(reminder) ?? reminder)
+            completion(editReminderCompletion?(reminder) ?? reminder, shouldSchedule)
         }
 
         var routesCount: Int {
