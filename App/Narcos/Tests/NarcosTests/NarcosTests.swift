@@ -24,7 +24,7 @@ final class NarcosTests: XCTestCase {
     func test_createReminder_commitAndSchedule_reminderScheduled() throws {
         let (sut, router) = makeSUT()
         router.newReminder = makeReminder()
-        router.shouldSchedule = true
+        router.newReminder?.isScheduled = true
 
         sut.start()
         sut.createReminder()
@@ -35,7 +35,7 @@ final class NarcosTests: XCTestCase {
     func test_createReminder_commitWithoutScheduling_reminderIsNotScheduled() throws {
         let (sut, router) = makeSUT()
         router.newReminder = makeReminder()
-        router.shouldSchedule = false
+        router.newReminder?.isScheduled = false
 
         sut.start()
         sut.createReminder()
@@ -88,10 +88,10 @@ final class NarcosTests: XCTestCase {
     }
     
     func test_editReminder_schedule_reminderScheduled() {
-        let reminder = makeReminder()
-        let (sut, router) = makeSUT(reminders: [reminder])
-        router.shouldSchedule = true
-        
+
+        var reminder = makeReminder()
+        reminder.isScheduled = true
+        let (sut, _) = makeSUT(reminders: [reminder])
         
         sut.editReminder(at: 0)
         
@@ -99,10 +99,10 @@ final class NarcosTests: XCTestCase {
     }
     
     func test_editReminder_unschedule_reminderUnscheduled() {
-        let reminder = makeReminder()
-        let (sut, router) = makeSUT(reminders: [reminder])
+        var reminder = makeReminder()
+        reminder.isScheduled = false
+        let (sut, _) = makeSUT(reminders: [reminder])
         sut.watcher.schedule(reminder: reminder)
-        router.shouldSchedule = false
         
         XCTAssertTrue(sut.watcher.isScheduled(reminder: sut.reminders[0]))
 
@@ -112,10 +112,10 @@ final class NarcosTests: XCTestCase {
     }
     
     func test_editReminder_changeNameofScheduledReminder_reminderIsScheduled() {
-        let reminder = makeReminder()
+        var reminder = makeReminder()
+        reminder.isScheduled = true
         let (sut, router) = makeSUT(reminders: [reminder])
         sut.watcher.schedule(reminder: reminder)
-        router.shouldSchedule = true
         
         router.editReminderCompletion = { reminder in
                 var reminderNew = reminder
@@ -218,20 +218,17 @@ final class NarcosTests: XCTestCase {
 
     private class RouterSpy: Router {
         var newReminder: Reminder?
-        var shouldSchedule: Bool = false
         var editReminderCompletion: ((Reminder) -> Reminder)?
 
         func navigateToNewReminder(with completion: (Reminder?) -> Void) {
             routes.append("new reminder")
-            var reminder = newReminder
-            reminder?.isScheduled = shouldSchedule
+            let reminder = newReminder
             completion(reminder)
         }
 
         func navigateToEditReminder(reminder: Reminder, with completion: @escaping ((Reminder) -> Void)) {
             routes.append("edit reminder")
-            var reminder = editReminderCompletion?(reminder) ?? reminder
-            reminder.isScheduled = shouldSchedule
+            let reminder = editReminderCompletion?(reminder) ?? reminder
             completion(reminder)
         }
 
