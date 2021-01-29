@@ -191,29 +191,4 @@ final class NarcosTests: XCTestCase {
         return (Narcos(router: router, reminders: reminders, watcher: watcher), router)
     }
 
-    private class RouterSpy: Router {
-        var newReminderCompletion: (() -> Reminder)?
-        var editReminderCompletion: ((Reminder) -> Reminder)?
-
-        func navigateToNewReminder(with completion: (Reminder?) -> Void) {
-            routes.append("new reminder")
-            let reminder = newReminderCompletion?()
-            completion(reminder)
-        }
-
-        func navigateToEditReminder(reminder: Reminder, with completion: @escaping ((Reminder) -> Void)) {
-            routes.append("edit reminder")
-            let reminder = editReminderCompletion?(reminder) ?? reminder
-            completion(reminder)
-        }
-
-        var routesCount: Int {
-            routes.count
-        }
-
-        var routes: [String] = []
-        func navigateToHome() {
-            routes.append("home")
-        }
-    }
 }
