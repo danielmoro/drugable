@@ -1,5 +1,6 @@
 @testable import Narcos
 import XCTest
+import CombineSchedulers
 
 final class NarcosTests: XCTestCase {
     func test_start_navigatesToHome() throws {
@@ -187,7 +188,8 @@ final class NarcosTests: XCTestCase {
 
     private func makeSUT(reminders: [Reminder] = []) -> (Narcos, RouterSpy) {
         let router = RouterSpy()
-        let watcher = Watcher()
+        let scheduler = DispatchQueue.testScheduler
+        let watcher = Watcher(scheduler: AnyScheduler(scheduler))
         return (Narcos(router: router, reminders: reminders, watcher: watcher), router)
     }
 

@@ -1,3 +1,6 @@
+
+import Foundation
+
 protocol Router {
     func navigateToHome()
     func navigateToNewReminder(with completion: @escaping ((Reminder?) -> Void))
@@ -8,7 +11,7 @@ protocol Router {
 struct Reminder: Equatable, Hashable {
     var name: String
     var isScheduled = false
-    
+    var date = Date()
 }
 
 class Narcos {

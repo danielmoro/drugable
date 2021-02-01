@@ -7,6 +7,7 @@
 
 import Foundation
 import XCTest
+import CombineSchedulers
 @testable import Narcos
 
 final class WatcherTests: XCTestCase {
@@ -14,7 +15,7 @@ final class WatcherTests: XCTestCase {
     func test_scheduleReminder_schedulesReminerInWatcher() {
         // given
         let reminder = makeReminder()
-        let (sut, _) = makeSUT()
+        let (sut, _, _) = makeSUT()
         // let (sut, _) = makeSUT(reminders: [reminder])
         // when
         sut.schedule(reminder: reminder)
@@ -24,7 +25,7 @@ final class WatcherTests: XCTestCase {
     
     func test_unscheduleReminder_unschedulesReminerInWatcher() {
         let reminder = makeReminder()
-        let (sut, _) = makeSUT()
+        let (sut, _, _) = makeSUT()
 
         sut.schedule(reminder: reminder)
         sut.unschedule(reminder: reminder)
@@ -34,7 +35,7 @@ final class WatcherTests: XCTestCase {
     
     func test_scheduleReminderTwice_scheduledRemindersCountNotChanged() {
         let reminder = makeReminder()
-        let (sut, _) = makeSUT()
+        let (sut, _, _) = makeSUT()
 
         sut.schedule(reminder: reminder)
         sut.schedule(reminder: reminder)
@@ -43,22 +44,29 @@ final class WatcherTests: XCTestCase {
     }
     
     func test_onTimeReminder_reminderNotificationIsShown() {
-        let reminder = makeReminder()
-        let (sut, router) = makeSUT()
+        let (sut, router, scheduler) = makeSUT()
+        let reminder = makeReminder(date: Date().advanced(by: 10000000))
         sut.schedule(reminder: reminder)
-        //advance to scheduled time
+        
+        scheduler.advance(by: .seconds(10000000))
+
         
         XCTAssertEqual(router.routes, ["notification"])
     }
     
-    private func makeReminder(name: String = "") -> Reminder {
-        Reminder(name: name)
+    private func makeReminder(name: String = "", date: Date = Date()) -> Reminder {
+        Reminder(name: name, date: date)
     }
     
-    private func makeSUT() -> (Watcher, RouterSpy) {
+    private func makeSUT() -> (
+        Watcher,
+        RouterSpy,
+        TestScheduler<DispatchQueue.SchedulerTimeType, DispatchQueue.SchedulerOptions>
+    ) {
         let router = RouterSpy()
-        let watcher = Watcher()
+        let scheduler = DispatchQueue.testScheduler
+        let watcher = Watcher(scheduler: AnyScheduler(scheduler))
         let _ = Narcos(router: router, watcher: watcher)
-        return (watcher, router)
+        return (watcher, router, scheduler)
     }
 }
