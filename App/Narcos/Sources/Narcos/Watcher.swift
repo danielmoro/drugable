@@ -8,12 +8,52 @@
 import Foundation
 import CombineSchedulers
 
+//protocol TestProtocol {
+//    associatedtype T
+//    func test(_: T)
+//}
+//
+//
+//struct AnyTestProtocol<T> : TestProtocol {
+//    var _test : (_: T) -> Void
+//    init<TP : TestProtocol>(tp: TP) where T == TP.T {
+//        _test = { (param) in
+//            tp.test(param)
+//        }
+//    }
+//
+//    func test(_ arg: T) {
+//        _test(arg)
+//    }
+//}
+//
+//extension TestProtocol {
+//    func eraseToAnyTestProtocol() -> AnyTestProtocol<T> {
+//        return AnyTestProtocol(tp: self)
+//    }
+//}
+//
+//class TestTest : TestProtocol {
+//
+//    func test(_: String) {
+//        //
+//    }
+//
+//}
+//
+//var arr = Array<AnyTestProtocol<String>>()
+//
+//var intTP = TestTest()
+//var t = intTP.eraseToAnyTestProtocol()
+//
+//arr.append(t)
+
+
 class Watcher {
     init(scheduler: AnySchedulerOf<DispatchQueue>, scheduledReminders: Set<Reminder> = []) {
         self.scheduler = scheduler
         self.scheduledReminders = scheduledReminders
     }
-    
     
     private var scheduler: AnySchedulerOf<DispatchQueue>
     
