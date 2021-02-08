@@ -46,12 +46,37 @@ final class WatcherTests: XCTestCase {
     func test_onTimeReminder_reminderNotificationIsShown() {
         let (sut, router, scheduler) = makeSUT()
         let reminder = makeReminder(date: Date().advanced(by: 10000000))
+        
         sut.schedule(reminder: reminder)
         
         scheduler.advance(by: .seconds(10000000))
 
         
         XCTAssertEqual(router.routes, ["notification"])
+    }
+    
+    func test_uncsheduleReminder_notificationNotShown() {
+        let (sut, router, scheduler) = makeSUT()
+        let reminder = makeReminder(date: Date().advanced(by: 1000))
+        
+        sut.schedule(reminder: reminder)
+        scheduler.advance(by: .seconds(500))
+        sut.unschedule(reminder: reminder)
+        scheduler.advance(by: .seconds(500))
+
+        XCTAssertEqual(router.routes, [])
+    }
+    
+    func test_reminderIsScheduled_watcherDeallocated_notificaitonNotShown() {
+        let (_, router, scheduler) = makeSUT()
+        let reminder = makeReminder(date: Date().advanced(by: 1000))
+        var watcher: Watcher? = Watcher(scheduler: AnyScheduler(scheduler), router: router)
+
+        watcher?.schedule(reminder: reminder)
+        watcher = nil
+        scheduler.advance(by: .seconds(1000))
+
+        XCTAssertEqual(router.routes, [])
     }
     
     private func makeReminder(name: String = "", date: Date = Date()) -> Reminder {
