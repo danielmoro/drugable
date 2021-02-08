@@ -189,7 +189,7 @@ final class NarcosTests: XCTestCase {
     private func makeSUT(reminders: [Reminder] = []) -> (Narcos, RouterSpy) {
         let router = RouterSpy()
         let scheduler = DispatchQueue.testScheduler
-        let watcher = Watcher(scheduler: AnyScheduler(scheduler))
+        let watcher = Watcher(scheduler: AnyScheduler(scheduler), router: router)
         return (Narcos(router: router, reminders: reminders, watcher: watcher), router)
     }
 

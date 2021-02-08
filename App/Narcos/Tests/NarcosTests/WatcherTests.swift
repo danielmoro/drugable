@@ -65,7 +65,7 @@ final class WatcherTests: XCTestCase {
     ) {
         let router = RouterSpy()
         let scheduler = DispatchQueue.testScheduler
-        let watcher = Watcher(scheduler: AnyScheduler(scheduler))
+        let watcher = Watcher(scheduler: AnyScheduler(scheduler), router: router)
         let _ = Narcos(router: router, watcher: watcher)
         return (watcher, router, scheduler)
     }

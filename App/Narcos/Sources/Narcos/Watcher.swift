@@ -50,12 +50,14 @@ import CombineSchedulers
 
 
 class Watcher {
-    init(scheduler: AnySchedulerOf<DispatchQueue>, scheduledReminders: Set<Reminder> = []) {
+    init(scheduler: AnySchedulerOf<DispatchQueue>, scheduledReminders: Set<Reminder> = [], router: Router) {
         self.scheduler = scheduler
         self.scheduledReminders = scheduledReminders
+        self.router = router
     }
     
     private var scheduler: AnySchedulerOf<DispatchQueue>
+    private var router: Router
     
     var scheduledReminders : Set<Reminder> = []
     func schedule(reminder : Reminder) {
@@ -63,7 +65,7 @@ class Watcher {
         let diff = reminder.date.timeIntervalSinceNow
 
         scheduler.schedule(after: scheduler.now.advanced(by: .seconds(diff))) {
-            //notify
+            self.router.navigateToNotification(for: reminder)
         }
     }
 
