@@ -63,8 +63,8 @@ class Watcher {
         scheduledReminders.insert(reminder)
         let diff = reminder.date.timeIntervalSinceNow
 
-        scheduler.schedule(after: scheduler.now.advanced(by: .seconds(diff))) {[weak self] in
-            if(self?.scheduledReminders.contains(reminder) == true) {
+        scheduler.schedule(after: scheduler.now.advanced(by: .seconds(diff))) { [weak self] in
+            if self?.scheduledReminders.contains(reminder) == true {
                 self?.router.navigateToNotification(for: reminder)
             }
         }
