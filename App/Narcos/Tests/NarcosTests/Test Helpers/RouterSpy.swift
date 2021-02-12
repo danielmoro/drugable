@@ -1,6 +1,6 @@
 //
 //  File.swift
-//  
+//
 //
 //  Created by Mirjana Milic on 1/29/21.
 //
@@ -9,18 +9,18 @@ import Foundation
 @testable import Narcos
 
 class RouterSpy: Router {
-    
     var newReminderCompletion: (() -> Reminder)?
     var editReminderCompletion: ((Reminder) -> Reminder)?
     var routesCount: Int {
         routes.count
     }
+
     var routes: [String] = []
-    
+
     func navigateToHome() {
         routes.append("home")
     }
-    
+
     func navigateToNewReminder(with completion: (Reminder?) -> Void) {
         routes.append("new reminder")
         let reminder = newReminderCompletion?()
@@ -32,9 +32,8 @@ class RouterSpy: Router {
         let reminder = editReminderCompletion?(reminder) ?? reminder
         completion(reminder)
     }
-    
-    func navigateToNotification(for reminder: Reminder) {
+
+    func navigateToNotification(for _: Reminder) {
         routes.append("notification")
     }
-    
 }

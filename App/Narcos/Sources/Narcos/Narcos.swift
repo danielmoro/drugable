@@ -16,7 +16,7 @@ struct Reminder: Equatable, Hashable {
 
 class Narcos {
     private var router: Router
-    var watcher : Watcher
+    var watcher: Watcher
 
     var reminders: [Reminder]
 
@@ -31,7 +31,7 @@ class Narcos {
     }
 
     func createReminder() {
-        router.navigateToNewReminder { [weak self] (reminder) in
+        router.navigateToNewReminder { [weak self] reminder in
             if let reminder = reminder {
                 self?.reminders.append(reminder)
                 if reminder.isScheduled {
@@ -43,7 +43,7 @@ class Narcos {
     }
 
     func editReminder(at index: Int) {
-        router.navigateToEditReminder(reminders[index]) { [weak self] reminder  in
+        router.navigateToEditReminder(reminders[index]) { [weak self] reminder in
             self?.reminders.remove(at: index)
             if reminder.isScheduled {
                 self?.watcher.schedule(reminder: reminder)

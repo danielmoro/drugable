@@ -5,16 +5,16 @@
 //  Created by Daniel Moro on 22.1.21..
 //
 
-import Foundation
 import CombineSchedulers
+import Foundation
 
-//protocol TestProtocol {
+// protocol TestProtocol {
 //    associatedtype T
 //    func test(_: T)
-//}
+// }
 //
 //
-//struct AnyTestProtocol<T> : TestProtocol {
+// struct AnyTestProtocol<T> : TestProtocol {
 //    var _test : (_: T) -> Void
 //    init<TP : TestProtocol>(tp: TP) where T == TP.T {
 //        _test = { (param) in
@@ -25,29 +25,28 @@ import CombineSchedulers
 //    func test(_ arg: T) {
 //        _test(arg)
 //    }
-//}
+// }
 //
-//extension TestProtocol {
+// extension TestProtocol {
 //    func eraseToAnyTestProtocol() -> AnyTestProtocol<T> {
 //        return AnyTestProtocol(tp: self)
 //    }
-//}
+// }
 //
-//class TestTest : TestProtocol {
+// class TestTest : TestProtocol {
 //
 //    func test(_: String) {
 //        //
 //    }
 //
-//}
+// }
 //
-//var arr = Array<AnyTestProtocol<String>>()
+// var arr = Array<AnyTestProtocol<String>>()
 //
-//var intTP = TestTest()
-//var t = intTP.eraseToAnyTestProtocol()
+// var intTP = TestTest()
+// var t = intTP.eraseToAnyTestProtocol()
 //
-//arr.append(t)
-
+// arr.append(t)
 
 class Watcher {
     init(scheduler: AnySchedulerOf<DispatchQueue>, scheduledReminders: Set<Reminder> = [], router: Router) {
@@ -55,12 +54,12 @@ class Watcher {
         self.scheduledReminders = scheduledReminders
         self.router = router
     }
-    
+
     private var scheduler: AnySchedulerOf<DispatchQueue>
     private var router: Router
-    
-    var scheduledReminders : Set<Reminder> = []
-    func schedule(reminder : Reminder) {
+
+    var scheduledReminders: Set<Reminder> = []
+    func schedule(reminder: Reminder) {
         scheduledReminders.insert(reminder)
         let diff = reminder.date.timeIntervalSinceNow
 
@@ -72,8 +71,8 @@ class Watcher {
     func unschedule(reminder: Reminder) {
         scheduledReminders.remove(reminder)
     }
-    
-    func isScheduled(reminder : Reminder) -> Bool {
-        return scheduledReminders.contains(reminder)
+
+    func isScheduled(reminder: Reminder) -> Bool {
+        scheduledReminders.contains(reminder)
     }
 }

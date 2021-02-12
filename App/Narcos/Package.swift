@@ -28,7 +28,7 @@ let package = Package(
             name: "NarcosTests",
             dependencies: [
                 "Narcos",
-                .product(name: "CombineSchedulers", package: "combine-schedulers")
+                .product(name: "CombineSchedulers", package: "combine-schedulers"),
             ]
         ),
     ]
