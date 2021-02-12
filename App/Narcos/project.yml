@@ -1,4 +1,8 @@
 name: Narcos
+packages:
+  combine-schedulers:
+    url: https://github.com/pointfreeco/combine-schedulers.git
+    from: 0.2.0
 targets:
   Narcos:
     sources: Sources
@@ -16,6 +20,9 @@ targets:
                 swiftlint autocorrrect
                 swiftlint lint
         name: Build Tools
+    dependencies:
+      - package: combine-schedulers
+        product: CombineSchedulers
   NarcosTests:
     sources: Tests
     type: bundle.unit-test
