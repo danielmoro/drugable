@@ -8,6 +8,16 @@ targets:
     sources: Sources
     info:
       path: Info.plist
+      properties:
+        UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait, UIInterfaceOrientationLandscapeLeft, UIInterfaceOrientationLandscapeRight]
+        UISupportedInterfaceOrientations~ipad: [UIInterfaceOrientationPortrait, UIInterfaceOrientationLandscapeLeft, UIInterfaceOrientationLandscapeRight, UIInterfaceOrientationPortraitUpsideDown]
+        UILaunchStoryboardName: LaunchScreen
+        UIApplicationSupportsIndirectInputEvents: true
+        ITSAppUsesNonExemptEncryption: false
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        CFBundleIconName: AppIcon
+        NSAccentColorName: AccentColor
     platform: iOS
     deploymentTarget:
       iOS: 14.0
@@ -17,6 +27,8 @@ targets:
         CODE_SIGN_IDENTITY: Apple Development
         PRODUCT_BUNDLE_IDENTIFIER: com.Drugable
         DEVELOPMENT_TEAM: 3Q2494254L
+        MARKETING_VERSION: 0.1
+        CURRENT_PROJECT_VERSION: 0.1.0
     dependencies:
       - package: Narcos
     preBuildScripts:
