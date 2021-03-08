@@ -1,0 +1,35 @@
+name: Drugable
+packages:
+  Narcos:
+    path: ../Narcos
+targets:
+  Drugable:
+    type: application
+    sources: Sources
+    info:
+      path: Info.plist
+    platform: iOS
+    deploymentTarget:
+      iOS: 14.0
+    settings:
+      base:
+        CODE_SIGN_STYLE: Automatic
+        CODE_SIGN_IDENTITY: Apple Development
+        PRODUCT_BUNDLE_IDENTIFIER: com.Drugable
+        DEVELOPMENT_TEAM: 3Q2494254L
+    dependencies:
+      - package: Narcos
+    preBuildScripts:
+      - script: |
+                swiftformat --swiftversion 5.3 .
+                swiftlint autocorrect
+                swiftlint lint
+        name: BuildTools
+  DrugableTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources: Tests
+    dependencies:
+      - target: Drugable
+    info:
+      path: Tests/Info.plist
