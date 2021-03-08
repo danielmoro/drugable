@@ -7,10 +7,16 @@ protocol Router {
     func navigateToNotification(for reminder: Reminder)
 }
 
-struct Reminder: Equatable, Hashable {
-    var name: String
-    var isScheduled = false
-    var date = Date()
+public struct Reminder: Equatable, Hashable {
+    public init(name: String, isScheduled: Bool = false, date: Date = Date()) {
+        self.name = name
+        self.isScheduled = isScheduled
+        self.date = date
+    }
+    
+    public var name: String
+    public var isScheduled = false
+    public var date: Date
 }
 
 class Narcos {
