@@ -22,7 +22,9 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
             name: "Narcos",
-            dependencies: []
+            dependencies: [
+                .product(name: "CombineSchedulers", package: "combine-schedulers")
+            ]
         ),
         .testTarget(
             name: "NarcosTests",
