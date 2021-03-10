@@ -3,13 +3,14 @@
 //  Copyright © 2021 Daniel Moro. All rights reserved.
 //
 
+import Narcos
 import SwiftUI
 
 @main
 struct DrugableApp: App {
     var body: some Scene {
         WindowGroup {
-            ReminderList(reminders: [])
+            ReminderList().environmentObject(ReminderFetcher())
         }
     }
 }

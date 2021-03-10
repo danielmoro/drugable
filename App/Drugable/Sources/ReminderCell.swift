@@ -7,24 +7,22 @@ import Narcos
 import SwiftUI
 
 struct ReminderCell: View {
-    let reminder: Reminder
+    
+    @StateObject var reminder: ReminderViewModel
+
     var body: some View {
         HStack {
-            Text(reminder.name)
-                .layoutPriority(1)
-            Spacer()
-            Toggle("", isOn: .constant(reminder.isScheduled))
+            Toggle(reminder.name, isOn: $reminder.isOn)
         }
-        .background(Color.red)
     }
 }
 
 struct ReminderCell_Previews: PreviewProvider {
     static var previews: some View {
         List {
-            ReminderCell(reminder: Reminder(name: "R1"))
-            ReminderCell(reminder: Reminder(name: "R2", isScheduled: true))
-            ReminderCell(reminder: Reminder(name: "R3"))
+            ReminderCell(reminder: ReminderViewModel.dumbReminder())
+            ReminderCell(reminder: ReminderViewModel.dumbReminder())
+            ReminderCell(reminder: ReminderViewModel.dumbReminder())
         }
     }
 }

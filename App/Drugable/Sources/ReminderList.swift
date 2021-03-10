@@ -6,30 +6,28 @@
 import Narcos
 import SwiftUI
 
-extension Reminder: Identifiable {
-    public var id: UUID {
-        UUID()
-    }
-}
-
 struct ReminderList: View {
-    let reminders: [Reminder]
+    
+    @EnvironmentObject var reminderFetcher: ReminderFetcher
+    
     var body: some View {
-        List(reminders) { reminder in
-            ReminderCell(reminder: reminder)
+        if reminderFetcher.isLoading == false {
+            List(reminderFetcher.reminders) { reminder in
+                ReminderCell(reminder: reminder)
+            }.onAppear(perform: {
+                reminderFetcher.fetchReminder()
+            })
+            .listStyle(GroupedListStyle())
+        } else {
+            ProgressView("Loading...").progressViewStyle(CircularProgressViewStyle())
         }
-        .listStyle(GroupedListStyle())
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            ReminderList(reminders: [
-                Reminder(name: "Reminder 1"),
-                Reminder(name: "Reminder 2"),
-                Reminder(name: "Reminder 3")
-            ])
+            ReminderList().environmentObject(ReminderFetcher())
         }
     }
 }
