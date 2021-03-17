@@ -9,22 +9,21 @@ import SwiftUI
 struct ReminderCell: View {
     
     @StateObject var reminder: ReminderViewModel
-    let tapHandler: () -> Void
-    let showsSwitcher: Bool
 
     var body: some View {
         HStack {
             VStack(alignment: .leading, content: {
                 Text(reminder.name)
-                        .font(.title)
+                        .font(.title3)
                 Text(reminder.dateAsString)
+                    .font(.subheadline)
+                    .foregroundColor(.gray)
             })
             Spacer()
-            if showsSwitcher {
-                Toggle("", isOn: $reminder.isOn).fixedSize()
-            }
-        }.onTapGesture {
-            tapHandler()
+            Toggle("", isOn: $reminder.isOn)
+                .onTapGesture {
+                withAnimation{reminder.isOn.toggle()}
+            }.fixedSize()
         }
     }
 }
@@ -32,15 +31,9 @@ struct ReminderCell: View {
 struct ReminderCell_Previews: PreviewProvider {
     static var previews: some View {
         List {
-            ReminderCell(reminder: ReminderViewModel.dumbReminder(), tapHandler: {
-                //
-            }, showsSwitcher: true)
-            ReminderCell(reminder: ReminderViewModel.dumbReminder(), tapHandler: {
-                //
-            }, showsSwitcher: true)
-            ReminderCell(reminder: ReminderViewModel.dumbReminder(), tapHandler: {
-                //
-            }, showsSwitcher: false)
+            ReminderCell(reminder: ReminderViewModel.dumbReminder())
+            ReminderCell(reminder: ReminderViewModel.dumbReminder())
+            ReminderCell(reminder: ReminderViewModel.dumbReminder())
         }
     }
 }

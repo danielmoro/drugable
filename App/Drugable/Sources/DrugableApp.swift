@@ -9,6 +9,7 @@ import SwiftUI
 @main
 struct DrugableApp: App {
     var body: some Scene {
+        
         WindowGroup {
             ReminderList().environmentObject(ReminderFetcher())
         }

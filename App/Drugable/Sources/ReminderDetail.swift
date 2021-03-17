@@ -13,6 +13,7 @@ struct ReminderDetail: View {
     @EnvironmentObject var reminderFetcher: ReminderFetcher
     @StateObject var reminder: ReminderViewModel
     @Binding var isPresented: Bool
+    @State var errorMessage: String?
     
     var body: some View {
         
@@ -24,7 +25,9 @@ struct ReminderDetail: View {
                     
             }.navigationBarItems(leading: cancelButton, trailing: doneButton)
             .navigationBarTitle("", displayMode: .inline)
-        }
+        }.alert(isPresented: Binding(get: hasErrorMessage, set: dismissError), content: {
+            Alert(title: Text("Validation warning"), message: Text(errorMessage ?? ""))
+        })
     }
     
     private var cancelButton: some View {
@@ -35,9 +38,28 @@ struct ReminderDetail: View {
     
     private var doneButton: some View {
         Button("Done") {
-            isPresented = false
-            reminderFetcher.addReminder(reminder)
+            let isValid = reminder.isValid()
+            
+            switch isValid {
+            case .success:
+                isPresented = false
+                self.reminderFetcher.addReminder(reminder)
+            case .failed(message: let message):
+                errorMessage = message
+            }
         }
+    }
+    
+    func hasErrorMessage() -> Bool {
+        if let e = errorMessage {
+            return e.count > 0
+        }
+        
+        return false
+    }
+    
+    func dismissError(_ dismiss: Bool) {
+        errorMessage = nil
     }
 }
 

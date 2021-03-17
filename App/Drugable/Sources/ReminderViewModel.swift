@@ -9,6 +9,17 @@ import Foundation
 import Narcos
 import Combine
 
+enum ValidationMessage: Equatable {
+    case success
+    case failed(message: String)
+    
+    var isValid: Bool {
+        get {
+            return self == ValidationMessage.success
+        }
+    }
+}
+
 class ReminderViewModel: ObservableObject, Identifiable, Hashable {
     static func == (lhs: ReminderViewModel, rhs: ReminderViewModel) -> Bool {
         return lhs.hashValue == rhs.hashValue
@@ -41,7 +52,10 @@ class ReminderViewModel: ObservableObject, Identifiable, Hashable {
     
     var dateAsString: String {
         get {
-            return "\(date)"
+            let df = DateFormatter()
+            df.dateStyle = .full
+            df.timeStyle = .short
+            return df.string(from: reminder.date)
         }
     }
     
@@ -59,6 +73,22 @@ class ReminderViewModel: ObservableObject, Identifiable, Hashable {
     
     static func newReminder() -> ReminderViewModel {
         return ReminderViewModel(reminder: Reminder(name: ""))
+    }
+    
+    func isValid() -> ValidationMessage {
+        
+        var result = true
+        var resultString: String = ""
+        if self.name.count == 0  {
+            result = false
+            resultString = resultString + "Name is required"
+        }
+        
+        if result {
+            return .success
+        }
+        
+        return .failed(message: resultString)
     }
 }
 
@@ -78,6 +108,21 @@ class ReminderFetcher: ObservableObject {
             self.reminders = [
                 ReminderViewModel(reminder: Reminder(name: "R1", isScheduled: false, date: Date())),
                 ReminderViewModel(reminder: Reminder(name: "R2", isScheduled: false, date: Date())),
+                ReminderViewModel(reminder: Reminder(name: "R3", isScheduled: false, date: Date())),
+                ReminderViewModel(reminder: Reminder(name: "R1", isScheduled: false, date: Date())),
+                ReminderViewModel(reminder: Reminder(name: "R2", isScheduled: false, date: Date())),
+                ReminderViewModel(reminder: Reminder(name: "R3", isScheduled: false, date: Date())),
+                ReminderViewModel(reminder: Reminder(name: "R1", isScheduled: false, date: Date())),
+                ReminderViewModel(reminder: Reminder(name: "R2", isScheduled: false, date: Date())),
+                ReminderViewModel(reminder: Reminder(name: "R3", isScheduled: false, date: Date())),
+                ReminderViewModel(reminder: Reminder(name: "R1", isScheduled: false, date: Date())),
+                ReminderViewModel(reminder: Reminder(name: "R2", isScheduled: false, date: Date())),
+                ReminderViewModel(reminder: Reminder(name: "R3", isScheduled: false, date: Date())),
+                ReminderViewModel(reminder: Reminder(name: "R1", isScheduled: false, date: Date())),
+                ReminderViewModel(reminder: Reminder(name: "R2", isScheduled: false, date: Date())),
+                ReminderViewModel(reminder: Reminder(name: "R3", isScheduled: false, date: Date())),
+                ReminderViewModel(reminder: Reminder(name: "R1", isScheduled: false, date: Date())),
+                ReminderViewModel(reminder: Reminder(name: "R2", isScheduled: false, date: Date())),
                 ReminderViewModel(reminder: Reminder(name: "R3", isScheduled: false, date: Date()))
             ]
         }
@@ -88,5 +133,17 @@ class ReminderFetcher: ObservableObject {
             self.reminders.append(reminder)
         }
     }
+    
+    func deleteReminderAtIndex(_ index: IndexSet) {
+        self.reminders.remove(atOffsets: index)
+    }
+    
+    func canDeleteReminder(_ reminder: ReminderViewModel) -> Bool {
+        if let index = self.reminders.firstIndex(of: reminder) {
+            return index % 2 == 0
+        }
+        return true
+    }
+    
     var selectedReminder: ReminderViewModel?
 }

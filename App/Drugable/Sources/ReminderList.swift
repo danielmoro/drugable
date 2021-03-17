@@ -16,42 +16,55 @@ struct ReminderList: View {
             }
         }
     }
-    
-    @State var isEditing = false
-    
-    var body: some View {
         
-        NavigationView {
-            ZStack {
-                listView
-                if reminderFetcher.isLoading == true {
-                    progress
-                }
-            }.navigationBarTitle(Text("Reminders"), displayMode: .large)
-            .navigationBarItems(leading: editButton, trailing: addButton)
+    var body: some View {
+        ZStack {
+            NavigationView {
+                ZStack {
+                    listView
+                }.navigationBarTitle(
+                    Text("Reminders"), displayMode: .large
+                )
+                .navigationBarItems(trailing: addButton)
+            }
+            .navigationViewStyle(StackNavigationViewStyle())
+            .fullScreenCover(
+                isPresented: $reminderDetailIsPresented,
+                content: {
+                  reminderDetail
+            })
+            if reminderFetcher.isLoading == true {
+                progress
+            }
         }
-        .fullScreenCover(isPresented: $reminderDetailIsPresented, content: {
-            ReminderDetail(reminder: reminderFetcher.selectedReminder ?? ReminderViewModel.newReminder(), isPresented: $reminderDetailIsPresented)
-        })
     }
     
     private var listView: some View {
-        List(reminderFetcher.reminders) { reminder in
-            ReminderCell(reminder: reminder, tapHandler: {
-                if reminderDetailIsPresented == false {
-                    reminderFetcher.selectedReminder = reminder
-                    reminderDetailIsPresented = true
-                }
-            }, showsSwitcher: isEditing)
-        }.onAppear(perform: {
+        List {
+            
+            ForEach(reminderFetcher.reminders, content: { reminder in
+                ReminderCell(reminder: reminder)
+                    .onTapGesture {
+                        if reminderDetailIsPresented == false {
+                            reminderFetcher.selectedReminder = reminder
+                            reminderDetailIsPresented.toggle()
+                        }
+                    }.deleteDisabled(reminderFetcher.canDeleteReminder(reminder))
+            }).onDelete(perform: { indexSet in
+                self.reminderFetcher.deleteReminderAtIndex(indexSet)
+            })
+        }
+        .onAppear(perform: {
             reminderFetcher.fetchReminder()
         })
         .listStyle(GroupedListStyle())
     }
     
     private var progress: some View {
-        ProgressView("Loading...").progressViewStyle(CircularProgressViewStyle())
-            .navigationBarTitle(Text("Reminders"))
+        LoadingView(
+            color: .accentColor,
+            text: "Loading"
+        )
     }
     
     private var addButton: some View {
@@ -60,10 +73,11 @@ struct ReminderList: View {
         }).disabled(reminderFetcher.isLoading == true)
     }
     
-    private var editButton: some View {
-        Button("Edit", action: {
-            isEditing.toggle()
-        }).disabled(reminderFetcher.isLoading == true)
+    private var reminderDetail: some View {
+        ReminderDetail(
+            reminder: reminderFetcher.selectedReminder ?? ReminderViewModel.newReminder(),
+            isPresented: $reminderDetailIsPresented
+    )
     }
 }
 
