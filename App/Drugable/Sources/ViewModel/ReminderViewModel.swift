@@ -96,6 +96,7 @@ class ReminderFetcher: ObservableObject {
     
     @Published var reminders: [ReminderViewModel] = []
     var isLoading = false
+    var disposables: Set<AnyCancellable> = []
     
     func fetchReminder() {
         if reminders.count > 0 {
@@ -105,26 +106,17 @@ class ReminderFetcher: ObservableObject {
         reminders = []
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
             self.isLoading.toggle()
-            self.reminders = [
-                ReminderViewModel(reminder: Reminder(name: "R1", isScheduled: false, date: Date())),
-                ReminderViewModel(reminder: Reminder(name: "R2", isScheduled: false, date: Date())),
-                ReminderViewModel(reminder: Reminder(name: "R3", isScheduled: false, date: Date())),
-                ReminderViewModel(reminder: Reminder(name: "R1", isScheduled: false, date: Date())),
-                ReminderViewModel(reminder: Reminder(name: "R2", isScheduled: false, date: Date())),
-                ReminderViewModel(reminder: Reminder(name: "R3", isScheduled: false, date: Date())),
-                ReminderViewModel(reminder: Reminder(name: "R1", isScheduled: false, date: Date())),
-                ReminderViewModel(reminder: Reminder(name: "R2", isScheduled: false, date: Date())),
-                ReminderViewModel(reminder: Reminder(name: "R3", isScheduled: false, date: Date())),
-                ReminderViewModel(reminder: Reminder(name: "R1", isScheduled: false, date: Date())),
-                ReminderViewModel(reminder: Reminder(name: "R2", isScheduled: false, date: Date())),
-                ReminderViewModel(reminder: Reminder(name: "R3", isScheduled: false, date: Date())),
-                ReminderViewModel(reminder: Reminder(name: "R1", isScheduled: false, date: Date())),
-                ReminderViewModel(reminder: Reminder(name: "R2", isScheduled: false, date: Date())),
-                ReminderViewModel(reminder: Reminder(name: "R3", isScheduled: false, date: Date())),
-                ReminderViewModel(reminder: Reminder(name: "R1", isScheduled: false, date: Date())),
-                ReminderViewModel(reminder: Reminder(name: "R2", isScheduled: false, date: Date())),
-                ReminderViewModel(reminder: Reminder(name: "R3", isScheduled: false, date: Date()))
-            ]
+            decodeFromAssets(assetName: "reminders", type: [Reminder].self).sink { error in
+                //
+            } receiveValue: { reminder in
+                var rems: [ReminderViewModel] = []
+                for r in reminder {
+                    rems.append(ReminderViewModel(reminder: r))
+                }
+                self.reminders = rems
+            }.store(in: &self.disposables)
+
+
         }
     }
         

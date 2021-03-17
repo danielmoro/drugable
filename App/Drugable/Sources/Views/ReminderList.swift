@@ -16,6 +16,10 @@ struct ReminderList: View {
             }
         }
     }
+    
+    init() {
+        UITableView.appearance().backgroundColor = .white
+    }
         
     var body: some View {
         ZStack {
@@ -77,7 +81,8 @@ struct ReminderList: View {
         ReminderDetail(
             reminder: reminderFetcher.selectedReminder ?? ReminderViewModel.newReminder(),
             isPresented: $reminderDetailIsPresented
-    )
+        )
+//        UIKitController()
     }
 }
 

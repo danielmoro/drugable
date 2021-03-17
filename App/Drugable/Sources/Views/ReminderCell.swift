@@ -20,10 +20,7 @@ struct ReminderCell: View {
                     .foregroundColor(.gray)
             })
             Spacer()
-            Toggle("", isOn: $reminder.isOn)
-                .onTapGesture {
-                withAnimation{reminder.isOn.toggle()}
-            }.fixedSize()
+            MyToggle(isOn: $reminder.isOn).fixedSize()
         }
     }
 }

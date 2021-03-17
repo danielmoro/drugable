@@ -7,7 +7,7 @@ protocol Router {
     func navigateToNotification(for reminder: Reminder)
 }
 
-public struct Reminder: Equatable, Hashable {
+public struct Reminder: Equatable, Hashable, Decodable {
     public init(name: String, isScheduled: Bool = false, date: Date = Date()) {
         self.name = name
         self.isScheduled = isScheduled
