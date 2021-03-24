@@ -106,7 +106,7 @@ class ReminderFetcher: ObservableObject {
         reminders = []
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
             self.isLoading.toggle()
-            decodeFromAssets(assetName: "reminders", type: [Reminder].self).sink { error in
+            JSONdecodeFromAssets(assetName: "reminders", type: [Reminder].self).sink { error in
                 //
             } receiveValue: { reminder in
                 var rems: [ReminderViewModel] = []
